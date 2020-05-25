@@ -15,7 +15,7 @@
 
 // house ------ we could show whether the house won or lost the round.
 
-// after playing around with the FE logic of the game, I'm wondering I actually need a card, deck, or hand model on the backend. 
+// after playing around with the FE logic of the game, I'm wondering I actually need a card or deck model on the backend. 
 // The generation of cards and hands can happen on the FE and cards in any given round don't necessarily need to be recorded, only the total matters.
 // It'll be more optimized that way as well.
 
@@ -147,27 +147,25 @@ function hitMe(userHand){
   return userHand
 }
 
-//split will activate on a click event.
+// //The button for split will have it's display set to hidden unless player has two of the same card in his hand.
 
-//The button for split will have it's display set to hidden unless player has two of the same card in his hand.
+// //I was thinking initially that 'split' would add a new array into UserHand, but this messes up the way calculateTotal works.
 
-//I was thinking initially that 'split' would add a new array into UserHand, but this messes up the way calculateTotal works.
+// //So a better way to do it with the code I've already written is to add arrays.
 
-//So a better way to do it with the code I've already written is to add arrays.
+// //Looked up rules on splitting and some casinos only allow one split, most allow three, and a few allow six.
 
-//Looked up rules on splitting and some casinos only allow one split, most allow three, and a few allow six.
+// function checkIfSplitPossible(){
+//   if (userHand.length === 2 && userHand[0].value === userHand[1].value){
+//     //(split button selector goes here).style.display = 'block'
+//     //will have to replace userHand with currentHand, once I figure out how to alternate which hand is in play, but this is the gist of it.
+//   }
+// }
 
-function checkIfSplitPossible(){
-  if (userHand.length === 2 && userHand[0].value === userHand[1].value){
-    //(split button selector goes here).style.display = 'block'
-    //will have to replace userHand with currentHand, once I figure out how to alternate which hand is in play, but this is the gist of it.
-  }
-}
-
-function split(event){
-  userHand1.push(userHand[0])
-  userHand.unshift(userHand[0])
-}
+// function split(event){
+//   userHand1.push(userHand[0])
+//   userHand.unshift(userHand[0])
+// }
 
 
 document.addEventListener("DOMContentLoaded", () => {
