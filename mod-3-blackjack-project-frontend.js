@@ -1,7 +1,3 @@
-"use strict"
-
-
-
 // ------------------------------------------
 //  FETCH FUNCTIONS
 // ------------------------------------------
@@ -23,16 +19,12 @@
 // The generation of cards and hands can happen on the FE and cards in any given round don't necessarily need to be recorded, only the total matters.
 // It'll be more optimized that way as well.
 
-
-
 // ------------------------------------------
 //  HELPER FUNCTIONS
 // ------------------------------------------
 
 // Some of the general blackjack functions help with fetching the total, and will be called during patch requests. 
 // I think maybe making all of that into a module once we have it hooked up importing it will make the code cleaner
-
-
 
 // ------------------------------------------
 //  EVENT LISTENERS
@@ -42,11 +34,9 @@
 // Hit Me Button: identifier.addEventListener('click', hitMe)
 // Etc
 
-
 //------------------------------------------
 // General BlackJack Rules
 //------------------------------------------
-
 
 let houseHand = []
 let userHand = []
@@ -58,7 +48,6 @@ let userHand4 = []
 // I guess in the backend there could be a true/false bool, saying whether hand has been played on the associated round or not.
 // if round.hand.been_played is set to true, it moves on.
 
-
 class Card {
   constructor(suit, value) {
     this.suit = suit;
@@ -68,8 +57,6 @@ class Card {
 
 let suits = ["Hearts", "Spades", "Clubs", "Diamonds"]
 let values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "K", "J", "Q", "A"]
-
-
 
 function generateDeck(){
   //add conditional here: If currentDeck.length === 0, generates new deck.
@@ -84,16 +71,24 @@ function generateDeck(){
 //Once we implement everything, we need to call GenerateDeck for every round, to ensure the deck never runs out. 
 let deck = generateDeck()
 
-function drawCard(){
+function drawCard(isUser = true){
+  const hand = (isUser ? userHand : houseHand)
   //randomizing the index ensures the deck is always 'shuffled.'
   let cardIndex = Math.floor(Math.random() * deck.length)
   let card = deck[cardIndex]
   deck.splice(cardIndex, 1)
+  console.log(`${isUser? 'You' : 'Dealer'} drew the ${card.value} of ${card.suit}`)
+  hand.push(card)
+
+  if (isUser) {
+    document.querySelector("div[class='user-info'] h2").innerHTML = `Your Score: ${calculateTotal(userHand)}`;
+  }
+  else {
+    document.querySelector("div[class='house-info'] h2").innerHTML = `House Score: ${calculateTotal(houseHand)}`;
+  }
+
   return card
 }
-
-// console.log(drawCard())
-// console.log(deck.length)
 
 // (pseudoCode):
 // function aces(card){
@@ -103,8 +98,6 @@ function drawCard(){
 //     card.value = 1
 //   }
 // }
-
-let testHand = [{suit: "spade", value: 10},{suit: "hearts", value: 10},{suit: "spade", value: "A"}]
 
 function calculateTotal(hand){
   let total = 0
@@ -123,24 +116,18 @@ function calculateTotal(hand){
   return total
 };
 
-console.log(calculateTotal(testHand))
-
-
-function swapAceValue(){
+function swapAceValue(userHand){
   if (userHand.find(card => card.value ==="A")){  
   let ace = userHand.find(card => card.value === "A")
   ace.value = 1
   }
 }
 
-userHand = [{suite: "Diamond", value: 10}, {suite: "Spades", value: 10},{suite: "Hearts", value: "A"}, {suite: "blah", value: 10}]
-
-function checkIfBust(){
+function checkIfBust(userHand){
   let aces = []
   aces.push(userHand.find(card => card.value === "A"))
 
   let total = calculateTotal(userHand)
-  console.log(typeof aces[0])
   if (total > 21 && typeof aces[0] != "undefined"){
     swapAceValue(userHand)
     total = calculateTotal(userHand)
@@ -151,20 +138,14 @@ function checkIfBust(){
   }
 }
 
-checkIfBust()
-
-// console.log(calculateTotal(userHand))
 
 //Will be linked to player click event:
-function hitMe(){
+function hitMe(userHand){
   userHand.push(drawCard())
   //checkIfBust()
   //add conditional that says if busted()==="You busted." ends the round, player loses bet.
   return userHand
 }
-
-
-
 
 //split will activate on a click event.
 
@@ -189,3 +170,18 @@ function split(event){
 }
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  const houseHand = [];
+  const userHand = [];
+  const deck = generateDeck();
+
+  [0, 1].forEach(card => drawCard(false));
+  [0, 1].forEach(card => drawCard(true));
+
+  document.addEventListener("click", e => {
+    if (e.target.id === 'hit-btn') {
+      drawCard(true)
+      checkIfBust(userHand)
+    }
+  })
+})
