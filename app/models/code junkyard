@@ -1,62 +1,8 @@
-"use strict"
 
+//previously wrote this code thinking that if I can get as much of this on the FE and minimized database updates, it will be faster, as the less SQL commands are being made, the better.
+//Was thinking image data could be fetched according to corresponding hands that are being toggled to display on the FE, based on these FE functions.
+//Ran into dead end, so cannibalizing the code and turning it into Ruby for backend actions.
 
-
-// ------------------------------------------
-//  FETCH FUNCTIONS
-// ------------------------------------------
-// Posting the Total
-// Initiating new round
-// 
-// player total (score, shows whether they're up or down based on the bank account they started with) --- create, edit actions.
-// player Bank account --- create, edit
-// player name ----create, edit, update, destroy.
-
-// rounds ---- create
-
-// bots ------ bank account? 
-// bots ------ total (score, shows whether they're up or down based on the bank account they started with)
-
-// house ------ we could show whether the house won or lost the round.
-
-// after playing around with the FE logic of the game, I'm wondering I actually need a card or deck model on the backend. 
-// The generation of cards and hands can happen on the FE and cards in any given round don't necessarily need to be recorded, only the total matters.
-// It'll be more optimized that way as well.
-
-
-
-// ------------------------------------------
-//  HELPER FUNCTIONS
-// ------------------------------------------
-
-// Some of the general blackjack functions help with fetching the total, and will be called during patch requests. 
-// I think maybe making all of that into a module once we have it hooked up importing it will make the code cleaner
-
-
-
-// ------------------------------------------
-//  EVENT LISTENERS
-// ------------------------------------------
-
-// need to have buttons for 'hit-me', 'stand,' 'double down,' etc. These will be click events linked to buttons with specific IDs.
-// Hit Me Button: identifier.addEventListener('click', hitMe)
-// Etc
-
-
-//------------------------------------------
-// General BlackJack Rules
-//------------------------------------------
-
-
-let houseHand = []
-let userHand = []
-let userHand2 = []
-let userHand3 = []
-let userHand4 = []
-// have to add a function that calls whenever a user takes an action to see if the length of these hands is > 0, to check if user split or not.
-// if length is greater than 0, user gets another turn playing that hand.
-// I guess in the backend there could be a true/false bool, saying whether hand has been played on the associated round or not.
-// if round.hand.been_played is set to true, it moves on.
 
 
 class Card {
@@ -187,5 +133,3 @@ function split(event){
   userHand1.push(userHand[0])
   userHand.unshift(userHand[0])
 }
-
-
