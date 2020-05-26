@@ -38,16 +38,6 @@
 // General BlackJack Rules
 //------------------------------------------
 
-let houseHand = []
-let userHand = []
-let userHand2 = []
-let userHand3 = []
-let userHand4 = []
-// have to add a function that calls whenever a user takes an action to see if the length of these hands is > 0, to check if user split or not.
-// if length is greater than 0, user gets another turn playing that hand.
-// I guess in the backend there could be a true/false bool, saying whether hand has been played on the associated round or not.
-// if round.hand.been_played is set to true, it moves on.
-
 class Card {
   constructor(suit, value) {
     this.suit = suit;
@@ -61,18 +51,15 @@ let values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "K", "J", "Q", "A"]
 function generateDeck(){
   //add conditional here: If currentDeck.length === 0, generates new deck.
   let deck = []
-  for (let suit in suits){
-    for (let value in values){
-      deck.push(new Card(suits[suit], values[value]))
+  for (let suit of suits){
+    for (let value of values){
+      deck.push(new Card(suit, value))
     }
   }
   return deck
 }
-//Once we implement everything, we need to call GenerateDeck for every round, to ensure the deck never runs out. 
-let deck = generateDeck()
 
 function drawCard(isUser = true){
-  const hand = (isUser ? userHand : houseHand)
   //randomizing the index ensures the deck is always 'shuffled.'
   let cardIndex = Math.floor(Math.random() * deck.length)
   let card = deck[cardIndex]
@@ -89,15 +76,6 @@ function drawCard(isUser = true){
 
   return card
 }
-
-// (pseudoCode):
-// function aces(card){
-//   if (card.value === 'A' && hand.total <= 11){
-//     card.value = 10
-//   } else {
-//     card.value = 1
-//   }
-// }
 
 function calculateTotal(hand){
   let total = 0
@@ -183,3 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 })
+
+function renderCard(card = null) {
+  return `<img src='./lib/assets/images/${card ? `${card.value}${card.suit[0]}.png` : 'Back.jpg'}'>`
+}

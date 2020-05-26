@@ -21,3 +21,12 @@ input {
     right: 0;
     background-color: white;
 }
+
+#split-btn, #double-btn {
+    display: none;
+}
+
+img {
+    max-height: 200px;
+    max-width: 100px;
+}
