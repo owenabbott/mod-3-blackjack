@@ -11,8 +11,6 @@ class Deck < ApplicationRecord
         @cards = Card.all
     end
 
-
-    
 end
 
 
