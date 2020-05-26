@@ -91,7 +91,7 @@ function playGame() {
       return total
     }
     else if (total > 21 && typeof aces[0] === "undefined") {
-      console.log("You busted.")
+      dialog.innerHTML += "You busted. "
       dealerPlay()
     }
   }
@@ -107,10 +107,26 @@ function playGame() {
       drawCard(false)
     }
     if (calculateTotal(houseHand) > 21) {
-      dialog.innerHTML += "The dealer busted.\n"
+      dialog.innerHTML += "The dealer busted. "
     }
-    dialog.innerHTML += `Final scores... Dealer: ${calculateTotal(houseHand)}, You: ${calculateTotal(userHand)}`
+    displayWinner()
   }
+
+  function displayWinner() {
+    const userScore = calculateTotal(userHand)
+    const dealerScore = calculateTotal(houseHand)
+    dialog.innerHTML += `Final scores... Dealer: ${dealerScore}, You: ${userScore}. `
+    if (userScore <= 21 && (dealerScore > 21 || userScore > dealerScore)) {
+      dialog.innerHTML += "You won!"
+    }
+    else if (userScore <= 21 && userScore === dealerScore) {
+      dialog.innerHTML += "'Twas a push!"
+    }
+    else {
+      dialog.innerHTML += "You lost!"
+    }
+  }
+
 
   [0, 1].forEach(card => drawCard(false));
   [0, 1].forEach(card => drawCard(true));
@@ -129,7 +145,6 @@ function playGame() {
 
 document.addEventListener("DOMContentLoaded", () => {
   playGame()
-
 })
 
 // //The button for split will have it's display set to hidden unless player has two of the same card in his hand.
