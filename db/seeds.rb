@@ -66,3 +66,12 @@ houseHand = Hand.create({total: 2, busted: false, stood: false, player_id: testD
 
 
 
+
+
+#To Do:
+
+#Figure out why count works when called, but doesn't save the change to the count attribute.
+#Learn more about polymorphic associations. I thought that player_type would automatically associate with player_id, but this doesn't appear to be the case.
+
+
+
