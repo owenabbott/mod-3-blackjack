@@ -1,4 +1,5 @@
 class Deck < ApplicationRecord
+    has_many :cards
 
     def generateDeck()
         suits = ["Hearts", "Spades", "Clubs", "Diamonds"]

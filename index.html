@@ -5,17 +5,21 @@
   <meta charset="utf-8">
   <title>Blackjack Main Page</title>
   <link rel="stylesheet" href="style.css">
-  <script src="index.js"></script>
+  <script src="mod-3-blackjack-project-frontend.js"></script>
 </head>
 <body>
     <h1>Welcome to Blackjack</h1>
-    <div class>
-        <h2>Dealer Score: 0</h2>
-        <div class="card-container" player="dealer"></div>
+    <div class='house-info'>
+        <h2>House Score: 0</h2>
+        <div class="card-container" player="house"></div>
     </div>
 
-    <div>
+    <div class='user-info'>
         <h2>Your Score: 0</h2>
         <div class="card-container" player="user"></div>
+        <button type="button" id="split-btn">Split</button>
+        <button type="button" id="double-btn">Double</button>
+        <button type="button" id="hit-btn">Hit</button>
+        <button type="button" id="stay-btn">Stay</button>
     </div>
 </body>

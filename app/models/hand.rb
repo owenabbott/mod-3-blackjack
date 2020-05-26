@@ -1,6 +1,6 @@
 class Hand < ApplicationRecord
     belongs_to :player, polymorphic: true
-
+    has_many :cards
 
     #thinking maybe instead of the user model, draw card should go here. Will make this change when necessary.
 
