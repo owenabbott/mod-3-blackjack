@@ -31,21 +31,21 @@ class Hand < ApplicationRecord
         end
     end
 
-    def checkIfBust
-        #can't remember if this is the right syntax for select. It's crazy how quick one's memory gets fuzzy after switching languages.
-        aces = User.hand.values.select do |"A"|
-        total = calculateTotal(User.hand)
+    # def checkIfBust
+    #     #can't remember if this is the right syntax for select. It's crazy how quick one's memory gets fuzzy after switching languages.
+    #     aces = User.hand.values.select do |"A"|
+    #     total = calculateTotal(User.hand)
 
-        if total > 21 &&  aces.count >= 1
-            swapAceValue(User.hand)
-            total = calculateTotal(User.hand)
-            return total
-        elsif total > 21 && aces.count = 0
-            print "You busted."
-            return "You busted."
-            #end round based on what this returns, player loses all money they bet.
-        end
-    end
+    #     if total > 21 &&  aces.count >= 1
+    #         swapAceValue(User.hand)
+    #         total = calculateTotal(User.hand)
+    #         return total
+    #     elsif total > 21 && aces.count = 0
+    #         print "You busted."
+    #         return "You busted."
+    #         #end round based on what this returns, player loses all money they bet.
+    #     end
+    # end
 
 
     def checkIfSplitPossible(hand)
